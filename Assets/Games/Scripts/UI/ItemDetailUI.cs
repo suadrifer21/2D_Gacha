@@ -4,40 +4,48 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemDetailUI : MonoBehaviour
+public class ItemDetailUI : ItemObjectUI 
 {
-    [SerializeField] private GameObject itemDetailParent;
-
-    [SerializeField] private Image itemImage;
-    [SerializeField] private TextMeshProUGUI nameText;
-    [SerializeField] private TextMeshProUGUI rarityText;
     [SerializeField] private TextMeshProUGUI typeText;
 
-    private void Start()
-    {
-        Transform drawResultUIParent = GameController.instance.drawResultUIParent;
-        print("s");
+    [SerializeField] private GameObject charDetailHolder;
+    [SerializeField] private TextMeshProUGUI charHPText;
+    [SerializeField] private TextMeshProUGUI charAttackText;
+    [SerializeField] private TextMeshProUGUI charDefenseText;
 
-        for (int i = 0; i < drawResultUIParent.childCount; i++)
-        {
-            int buttonIndex = i;
-            drawResultUIParent.GetChild(i).GetComponent<Button>().onClick.AddListener(() => ShowItemDetailUI(buttonIndex));
-        }
-    }
-    public void SetData(GameEntity itemData)
-    {
-        itemImage.sprite = itemData.ImageSprite;
-        nameText.text = itemData.Name;
-        rarityText.text = itemData.Rank.ToString();
-        typeText.text = itemData.Type.ToString();
-    }
+    [SerializeField] private GameObject weaponDetailHolder;
+    [SerializeField] private TextMeshProUGUI weaponBaseAttackText;
+    [SerializeField] private TextMeshProUGUI weaponSpecialEffectText;
+
+    [SerializeField] private GameObject itemDetailParent;
+    [SerializeField] private UIController uIController;
+
     public void ToggleItemDetail(bool isShow)
     {
         itemDetailParent.SetActive(isShow);
     }
     public void ShowItemDetailUI(int index)
     {
-        SetData(GameController.instance.GetDrawnItemData(index));
+        GameEntity gameEntity = GameController.instance.GetDrawnItemData(index);
+        base.SetData(gameEntity, uIController.SpritesHolder);
+
+        if(gameEntity is CharacterEntity characterEntity)
+        {
+            charDetailHolder.SetActive(true);
+            weaponDetailHolder.SetActive(false);
+            typeText.text = characterEntity.Type.ToString();
+            charHPText.text = characterEntity.HP.ToString();
+            charAttackText.text = characterEntity.Attack.ToString();
+            charDefenseText.text = characterEntity.Defense.ToString();
+        }else if (gameEntity is WeaponEntity weaponEntity)
+        {
+            charDetailHolder.SetActive(false);
+            weaponDetailHolder.SetActive(true);
+            typeText.text = weaponEntity.Type.ToString();
+            weaponBaseAttackText.text = weaponEntity.BaseAttack.ToString();
+            weaponSpecialEffectText.text = weaponEntity.SpecialType.ToString();
+        }
+
         ToggleItemDetail(true);
     }
 }

@@ -13,11 +13,11 @@ public class ReadyDrawState : IState
     public void Enter()
     {
         Debug.Log("Ready Draw");
-        game.ToggleReadyDrawCanvas(true);
+        game.ToggleReadyDrawUI(true);
     }
     public void Exit()
     {
-        game.ToggleReadyDrawCanvas(false);
+        game.ToggleReadyDrawUI(false);
     }
     public void Update()
     {

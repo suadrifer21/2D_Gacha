@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 8
   entityName: Boomerang
   type: 1
-  rank: 1
+  rank: 2
   imageSprite: {fileID: 21300024, guid: f5f1c19ce87450f4b97f8b363746558d, type: 3}
-  baseAttack: 60
+  baseAttack: 120
   specialType: 1

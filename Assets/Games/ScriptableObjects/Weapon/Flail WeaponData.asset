@@ -17,5 +17,5 @@ MonoBehaviour:
   type: 1
   rank: 1
   imageSprite: {fileID: 21300100, guid: f5f1c19ce87450f4b97f8b363746558d, type: 3}
-  baseAttack: 100
+  baseAttack: 90
   specialType: 3

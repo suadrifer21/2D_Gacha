@@ -15,22 +15,20 @@ public class GameController : MonoBehaviour
             Destroy(this);
     }
 
-    [SerializeField] private GameObject readyDrawCanvas;
-    [SerializeField] private GameObject processDrawCanvas;
-    [SerializeField] private GameObject resultDrawCanvas;
+    [SerializeField] private UIController uiController;
 
     private StateMachine stateMachine;
 
     private DrawController drawController;
 
     public event Action<bool> DrawEvent;
+    public event Action SetObjectToAnimateEvent;
+
     private bool isSingleDraw;
     public bool IsSingleDraw { get => isSingleDraw; }
 
-    //test
-    public ItemObjectUI itemObjectUI;
-    public Transform drawResultUIParent;
-    public ItemDetailUI itemDetailUI;
+    private RectTransform rectToAnimate;
+    public RectTransform RectToAnimate { get => rectToAnimate; set { rectToAnimate = value; SetObjectToAnimateEvent?.Invoke(); } }
 
     private void Start()
     {
@@ -43,17 +41,17 @@ public class GameController : MonoBehaviour
     {
         stateMachine.Update();
     }
-    public void ToggleReadyDrawCanvas(bool isEnabled)
+    public void ToggleReadyDrawUI(bool isEnabled)
     {
-        readyDrawCanvas.SetActive(isEnabled);
+        uiController.ToggleReadyDrawUI(isEnabled);
     }
-    public void ToggleProcessDrawCanvas(bool isEnabled)
+    public void ToggleProcessDrawUI(bool isEnabled)
     {
-        processDrawCanvas.SetActive(isEnabled);
+        uiController.ToggleProcessDrawUI(isEnabled);
     }
-    public void ToggleResultDrawCanvas(bool isEnabled)
+    public void ToggleResultDrawUI(bool isEnabled)
     {
-        resultDrawCanvas.SetActive(isEnabled);
+        uiController.ToggleResultDrawUI(isEnabled);
     }
     public void SingleDrawButton()
     {
@@ -79,5 +77,5 @@ public class GameController : MonoBehaviour
     public GameEntity GetDrawnItemData(int index)
     {
         return drawController.EntityDataList[index];
-    }   
+    }
 }

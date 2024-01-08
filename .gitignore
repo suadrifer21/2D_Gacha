@@ -70,3 +70,7 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# extra
+/2DGacha_Firdaus_BackUpThisFolder_ButDontShipItWithYourGame
+/2DGacha_Firdaus_BurstDebugInformation_DoNotShip
